@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tantárgyak</title>
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/webjars/bootstrap/5.2.2/css/bootstrap.min.css}" />
+    <script th:src="@{/webjars/jquery/3.6.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/5.2.2/js/bootstrap.min.js}"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed"
+                        data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                        aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span> <span
+                        class="icon-bar"></span> <span class="icon-bar"></span> <span
+                        class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#" th:href="@{/}">Tantárgyak kezelése</a>
+            </div>
+        </div>
+    </nav>
+
+    <div th:switch="${subjects}">
+        <h2 th:case="null">Nincs még tantárgy az adatbázisban!</h2>
+        <div th:case="*">
+            <h2>Tantárgyak</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>Azon.</th>
+                    <th>Tantárgy</th>
+                    <th>Szerkesztés</th>
+                    <th>Törlés</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="subject: ${subjects}">
+                    <td th:text="${subject.id}"></td>
+                    <td th:text="${subject.subjectName}"></td>
+                    <td> <a th:href="@{/subject/edit/{id}(id=${subject.id})}">Szerkesztés</a></td>
+                    <td> <a th:href="@{/subject/delete/{id}(id=${subject.id})}">Törlés</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <p> <a href="/subject/signup">Új tantárgy</a> </p>
+    </div>
+</body>
+</html>
